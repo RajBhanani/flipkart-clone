@@ -20,7 +20,7 @@ const NavBar = () => {
     <NavBox>
         {
             navData.map(data => (
-                <ItemBox>
+                <ItemBox key={data.key}>
                     <img src={data.url} alt={data.text} style={{width: "64px"}}/>
                     <Typography style={{fontSize: "14px", fontWeight: "600"}}>{data.text}</Typography>
                 </ItemBox>
