@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
+import { authenticateLogin } from "../../service/api";
 
 const DialogLoginButton = styled(Button)`
   text-transform: none;
@@ -18,14 +19,41 @@ const DialogLoginButton = styled(Button)`
   border-radius: 2px;
 `;
 
-const LoginText = ({ setAccount, accountInitialValue }) => {
+const LoginText = ({ setAccount, accountInitialValue, handleDialogClose, setLogin }) => {
+  const loginInitialValues = {
+    loginAccount: "",
+    loginPassword: "",
+  };
+
   const [showPassword, setShowPassword] = useState(false);
+  const [loginDetails, setLoginDetails] = useState(loginInitialValues);
+
+  const onValueChange = (e) => {
+    setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
+  };
+
+  const loginUser = async () => {
+    let response = await authenticateLogin(loginDetails);
+    if(response.status === 200)
+    {
+      handleDialogClose();
+      setLogin(loginDetails.loginAccount);
+    }
+  }
+
   return (
     <>
-      <TextField variant="standard" label="Enter email/mobile number" />
+      <TextField
+        variant="standard"
+        onChange={(e) => onValueChange(e)}
+        name="loginAccount"
+        label="Enter email/mobile number"
+      />
       <Box style={{ display: "flex", alignItems: "end" }}>
         <TextField
           variant="standard"
+          onChange={(e) => onValueChange(e)}
+          name="loginPassword"
           label="Enter password"
           type={showPassword ? "text" : "password"}
           style={{ width: "100%" }}
@@ -37,7 +65,7 @@ const LoginText = ({ setAccount, accountInitialValue }) => {
       <Typography style={{ fontSize: "15px", color: "#696969" }}>
         By continuing you agree with Flipkart's policies.
       </Typography>
-      <DialogLoginButton>Login</DialogLoginButton>
+      <DialogLoginButton onClick={loginUser}>Login</DialogLoginButton>
       <Typography style={{ textAlign: "center" }}>OR</Typography>
       <Button
         variant="outlined"
@@ -46,7 +74,12 @@ const LoginText = ({ setAccount, accountInitialValue }) => {
         Request OTP
       </Button>
       <Typography
-        style={{ textAlign: "center", color: "#2874F0", marginTop: "138px", cursor: "pointer"}}
+        style={{
+          textAlign: "center",
+          color: "#2874F0",
+          marginTop: "138px",
+          cursor: "pointer",
+        }}
         onClick={() => setAccount(accountInitialValue.signup)}
       >
         New? Create account

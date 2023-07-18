@@ -1,7 +1,9 @@
 import { Box, Button, Typography, styled } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AuthDialog from "../login/AuthDialog";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { DataContext } from "../../context/DataProvider";
+import Profile from "./Profile";
 
 const ButtonBox = styled(Box)`
   display: flex;
@@ -28,12 +30,17 @@ const LoginButton = styled(Button)`
 
 const CustomButtons = () => {
   const [open, setOpen] = useState(false);
+  const { login, setLogin } = useContext(DataContext);
 
   return (
     <ButtonBox>
-      <LoginButton variant="contained" onClick={() => setOpen(true)}>
-        Login
-      </LoginButton>
+      {login ? (
+        <Typography><Profile login={login} setLogin={setLogin}/></Typography>
+      ) : (
+        <LoginButton variant="contained" onClick={() => setOpen(true)}>
+          Login
+        </LoginButton>
+      )}
 
       <Typography>Become a Seller</Typography>
       <Typography>More</Typography>

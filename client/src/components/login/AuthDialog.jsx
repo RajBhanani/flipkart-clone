@@ -1,7 +1,8 @@
+import { useState, useContext } from "react";
 import { Dialog, Box, Typography, styled } from "@mui/material";
 import LoginText from "./LoginText";
 import SignupText from "./SignupText";
-import { useState } from "react";
+import { DataContext } from "../../context/DataProvider";
 
 const DialogWrapper = styled(Box)`
   height: 75vh;
@@ -28,28 +29,29 @@ const TextBox = styled(Box)`
 `;
 
 const AuthDialog = ({ open, setOpen }) => {
-
-  const handleDialogClose = () => {
-    setOpen(false); 
-    setTimeout(() => {
-      setAccount(accountInitialValue.login)
-    }, 100);
-  }
-
   const accountInitialValue = {
     login: {
       view: "login",
       heading: "Login",
-      text: "Get access to orders, wishlist, and recommendations"
+      text: "Get access to orders, wishlist, and recommendations",
     },
     signup: {
       view: "signup",
       heading: "Looks like you're new here!",
-      text: "Signup with your email to get started"
+      text: "Signup with your email to get started",
     },
   };
 
   const [account, setAccount] = useState(accountInitialValue.login);
+
+  const { setLogin } = useContext(DataContext);
+
+  const handleDialogClose = () => {
+    setOpen(false);
+    setTimeout(() => {
+      setAccount(accountInitialValue.login);
+    }, 100);
+  };
 
   return (
     <Dialog
@@ -71,11 +73,15 @@ const AuthDialog = ({ open, setOpen }) => {
             <LoginText
               setAccount={setAccount}
               accountInitialValue={accountInitialValue}
+              handleDialogClose={handleDialogClose}
+              setLogin={setLogin}
             />
           ) : (
-            <SignupText 
+            <SignupText
               setAccount={setAccount}
               accountInitialValue={accountInitialValue}
+              handleDialogClose={handleDialogClose}
+              setLogin={setLogin}
             />
           )}
         </TextBox>
