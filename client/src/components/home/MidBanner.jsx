@@ -8,7 +8,7 @@ const MidBanner = () => {
       <img
         src={imageURL[Math.floor(Math.random() * 3)]}
         alt="banner"
-        style={{ width: "400px" }}
+        style={{ width: "360px" }}
       />
     </Box>
   );

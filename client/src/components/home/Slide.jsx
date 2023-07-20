@@ -2,24 +2,48 @@ import { Box, Button, Typography, styled } from "@mui/material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-const WrapperBox = styled(Box)`
-  margin: 30px 0px;
-  display: flex;
-  padding: 3px;
-  height: 300px;
-  background-color: white;
-`;
+const WrapperBox = styled(Box)(({ theme }) => ({
+  margin: "30px 0px",
+  display: "flex",
+  flexDirection: "row",
+  padding: "3px",
+  height: "300px",
+  backgroundColor: "white",
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column"
+  },
+}));
 
-const SideBox = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: white
-    url(https://images.unsplash.com/photo-1630609083938-3acb39a06392?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
-    bottom/100% 40% no-repeat;
-  gap: 20px;
-`;
+const TopBox = styled(Box)(({ theme }) => ({
+  display: "none",
+  padding: "10px",
+  backgroundColor: "#2748F0",
+  color: "white",
+  justifyContent: "space-between",
+  [theme.breakpoints.down("md")]: {
+    display: "flex",
+  },
+}));
+
+const SideBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  background:
+    "white url(https://images.unsplash.com/photo-1630609083938-3acb39a06392?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80) bottom/100% 40% no-repeat",
+  gap: "20px",
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
+}));
+
+const AdImage = styled("img")(({ theme }) => ({
+  height: "300px",
+  [theme.breakpoints.down("lg")]: {
+    display: "none",
+  },
+}));
 
 const ProductBox = styled(Box)`
   background: white;
@@ -50,6 +74,12 @@ const Slide = ({ products, title, toggleAd = false }) => {
   };
   return (
     <WrapperBox>
+      <TopBox>
+        <Typography variant="h5">{title}</Typography>
+        <Button variant="contained" size="small" style={{ borderRadius: "2px" }}>
+          View all
+        </Button>
+      </TopBox>
       <SideBox style={{ width: toggleAd ? "16%" : "13%" }}>
         <Typography variant="h5">{title}</Typography>
         <Button variant="contained" style={{ borderRadius: "2px" }}>
@@ -81,7 +111,7 @@ const Slide = ({ products, title, toggleAd = false }) => {
       </Box>
       {toggleAd && (
         <Box>
-          <img src={adURL} alt="ad" style={{height: "300px"}}/>
+          <AdImage src={adURL} alt="ad" style={{ height: "300px" }} />
         </Box>
       )}
     </WrapperBox>
