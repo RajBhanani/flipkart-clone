@@ -35,6 +35,7 @@ const Banner = () => {
       autoPlaySpeed={7000}
       dotListClass="custom-dot-list-style"
       itemClass="carousel-item-padding-40-px"
+      containerClass="carousel-container"
     >
       {bannerData.map((data) => (
         <StyledImg src={data.url} alt="banner" key={data.id} />
