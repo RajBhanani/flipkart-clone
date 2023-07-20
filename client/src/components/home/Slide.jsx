@@ -1,6 +1,9 @@
 import { Box, Button, Typography, styled } from "@mui/material";
+
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+
+import { Link } from "react-router-dom";
 
 const WrapperBox = styled(Box)(({ theme }) => ({
   margin: "30px 0px",
@@ -10,7 +13,7 @@ const WrapperBox = styled(Box)(({ theme }) => ({
   height: "300px",
   backgroundColor: "white",
   [theme.breakpoints.down("md")]: {
-    flexDirection: "column"
+    flexDirection: "column",
   },
 }));
 
@@ -76,7 +79,11 @@ const Slide = ({ products, title, toggleAd = false }) => {
     <WrapperBox>
       <TopBox>
         <Typography variant="h5">{title}</Typography>
-        <Button variant="contained" size="small" style={{ borderRadius: "2px" }}>
+        <Button
+          variant="contained"
+          size="small"
+          style={{ borderRadius: "2px" }}
+        >
           View all
         </Button>
       </TopBox>
@@ -96,16 +103,22 @@ const Slide = ({ products, title, toggleAd = false }) => {
           containerClass="carousel-container"
         >
           {products.map((product) => (
-            <ProductBox key={product.id}>
-              <ProductImage src={product.url} alt="product" />
-              <Typography fontWeight={"bold"}>
-                {product.title.shortTitle}
-              </Typography>
-              <Typography color={"green"}>{product.discount}</Typography>
-              <Typography style={{ opacity: 0.6, fontSize: 14 }}>
-                {product.tagline}
-              </Typography>
-            </ProductBox>
+            <Link
+              to={`product/${product.id}`}
+              key={product.id}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <ProductBox>
+                <ProductImage src={product.url} alt="product" />
+                <Typography fontWeight={"bold"}>
+                  {product.title.shortTitle}
+                </Typography>
+                <Typography color={"green"}>{product.discount}</Typography>
+                <Typography style={{ opacity: 0.6, fontSize: 14 }}>
+                  {product.tagline}
+                </Typography>
+              </ProductBox>
+            </Link>
           ))}
         </Carousel>
       </Box>
