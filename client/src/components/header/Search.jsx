@@ -1,5 +1,11 @@
-import { InputBase, Box, styled } from "@mui/material";
+import { InputBase, Box, styled, List, ListItem } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { useEffect, useState } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { getProducts } from "../../redux/actions/product_actions.js";
+
+import { Link } from "react-router-dom";
 
 const SearchBox = styled(Box)`
   background: #ffffff;
@@ -15,13 +21,54 @@ const SearchInputBase = styled(InputBase)`
   font-size: unset;
 `;
 
+const ListWrapper = styled(List)({
+  position: "absolute",
+  background: "white",
+  color: "black",
+  marginTop: "33px",
+});
+
 const Search = () => {
+  const [text, setText] = useState("");
+
+  const { products } = useSelector((state) => state.getProducts);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
   return (
     <SearchBox>
-      <SearchInputBase placeholder="Search for products, brands, and more" />
-      <Box style={{color: "#2874F0", margin: "auto 5px"}}>
+      <SearchInputBase
+        placeholder="Search for products, brands, and more"
+        onChange={(e) => setText(e.target.value)}
+        onClick={(e) => setText(e.target.value)}
+      />
+      <Box style={{ color: "#2874F0", margin: "auto 5px" }}>
         <SearchIcon />
       </Box>
+      {text && (
+        <ListWrapper>
+          {products
+            .filter((product) =>
+              product.title.longTitle.toLowerCase().includes(text.toLowerCase())
+            )
+            .map((product) => (
+              <ListItem>
+                <Link
+                  to={`/product/${product.id}`}
+                  style={{ textDecoration: "none", color: "black" }}
+                  onClick={() => {
+                    setText("");
+                  }}
+                >
+                  {product.title.longTitle}
+                </Link>
+              </ListItem>
+            ))}
+        </ListWrapper>
+      )}
     </SearchBox>
   );
 };

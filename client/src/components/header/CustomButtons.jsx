@@ -5,18 +5,26 @@ import { useState, useContext } from "react";
 import { DataContext } from "../../context/DataProvider";
 import Profile from "./Profile";
 
-const ButtonBox = styled(Box)`
-  display: flex;
-  margin: 0 3% 0 auto;
-  & > p,
-  & > div {
-    margin: auto 5px;
-    font-size: 15px;
-    font-weight: 600;
-    width: 135px;
-    text-align: center;
-  }
-`;
+const ButtonBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  margin: "0 3% 0 auto",
+  "& > button, & > p, & > div": {
+    margin: "auto 25px",
+    fontSize: "15px",
+    fontWeight: "600",
+    width: "max-content",
+    textAlign: "center",
+  },
+  [theme.breakpoints.down("md")]: {
+    padding: "20px",
+    flexDirection: "column",
+    gap: "30px",
+    "& > button, & > p, & > div": {
+      width: "auto"
+    }
+  },
+}));
+
 
 const LoginButton = styled(Button)`
   background: #ffffff;
@@ -35,7 +43,9 @@ const CustomButtons = () => {
   return (
     <ButtonBox>
       {login ? (
-        <Typography><Profile login={login} setLogin={setLogin}/></Typography>
+        <Typography>
+          <Profile login={login} setLogin={setLogin} />
+        </Typography>
       ) : (
         <LoginButton variant="contained" onClick={() => setOpen(true)}>
           Login
@@ -45,7 +55,7 @@ const CustomButtons = () => {
       <Typography>Become a Seller</Typography>
       <Typography>More</Typography>
 
-      <Box style={{ display: "flex" }}>
+      <Box style={{display: "flex", justifyContent: "center"}}>
         <ShoppingCartIcon fontSize="small" />
         <Typography style={{ fontSize: "15px", fontWeight: "600" }}>
           Cart

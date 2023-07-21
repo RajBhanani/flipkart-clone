@@ -13,7 +13,7 @@ const StyledTableRow = styled(TableRow)({
     verticalAlign: "baseline",
     "& > td": {
         border: "none",
-        marginTop: "10px"
+        marginTop: "10px",
     }
 })
 
