@@ -6,9 +6,10 @@ const NavBox = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "space-evenly",
   flexWrap: "wrap",
+  background: "white",
   [theme.breakpoints.down("md")]: {
-    padding: "10px 0px"
-  }
+    padding: "10px 0px",
+  },
 }));
 
 const ItemBox = styled(Box)`

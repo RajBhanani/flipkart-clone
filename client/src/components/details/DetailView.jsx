@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { Box, Grid, styled } from "@mui/material";
 
-import { getProductDetails } from "../../redux/actions/product_actions";
+import { getProductDetails } from "../../redux/actions/productActions";
 import ActionItem from "./ActionItem";
 import ProductDetail from "./ProductDetail";
 

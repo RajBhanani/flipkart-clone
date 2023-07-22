@@ -1,9 +1,11 @@
-import { Box, Button, Typography, styled } from "@mui/material";
+import { Box, Button, Typography, styled, Badge } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AuthDialog from "../login/AuthDialog";
 import { useState, useContext } from "react";
 import { DataContext } from "../../context/DataProvider";
 import Profile from "./Profile";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const ButtonBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -15,16 +17,21 @@ const ButtonBox = styled(Box)(({ theme }) => ({
     width: "max-content",
     textAlign: "center",
   },
+  "& > div > a": {
+    color: "white"
+  },
   [theme.breakpoints.down("md")]: {
     padding: "20px",
     flexDirection: "column",
     gap: "30px",
     "& > button, & > p, & > div": {
-      width: "auto"
-    }
+      width: "auto",
+    },
+    "& > div > a": {
+      color: "black"
+    },
   },
 }));
-
 
 const LoginButton = styled(Button)`
   background: #ffffff;
@@ -39,6 +46,8 @@ const LoginButton = styled(Button)`
 const CustomButtons = () => {
   const [open, setOpen] = useState(false);
   const { login, setLogin } = useContext(DataContext);
+
+  const { cartItems } = useSelector((state) => state.cart);
 
   return (
     <ButtonBox>
@@ -55,11 +64,22 @@ const CustomButtons = () => {
       <Typography>Become a Seller</Typography>
       <Typography>More</Typography>
 
-      <Box style={{display: "flex", justifyContent: "center"}}>
-        <ShoppingCartIcon fontSize="small" />
-        <Typography style={{ fontSize: "15px", fontWeight: "600" }}>
-          Cart
-        </Typography>
+      <Box>
+        <Link
+          to="/cart"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            textDecoration: "none",
+          }}
+        >
+          <Badge badgeContent={cartItems?.length} color="error" >
+          </Badge>
+            <ShoppingCartIcon fontSize="small" />
+            <Typography style={{ fontSize: "15px", fontWeight: "600" }}>
+              Cart
+            </Typography>
+        </Link>
       </Box>
 
       <AuthDialog open={open} setOpen={setOpen} />

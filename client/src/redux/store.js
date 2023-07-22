@@ -5,11 +5,14 @@ import thunk from "redux-thunk";
 import {
   getProductsReducer,
   getProductDetailsReducer,
-} from "./reducers/product_reducer.js";
+} from "./reducers/productReducer.js";
+
+import {cartReducer} from "./reducers/cartReducer.js"
 
 const reducer = combineReducers({
   getProducts: getProductsReducer,
   getProductDetails: getProductDetailsReducer,
+  cart: cartReducer,
 });
 
 const middleware = [thunk];

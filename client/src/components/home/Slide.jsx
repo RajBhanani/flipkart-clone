@@ -79,19 +79,11 @@ const Slide = ({ products, title, toggleAd = false }) => {
     <WrapperBox>
       <TopBox>
         <Typography variant="h5">{title}</Typography>
-        <Button
-          variant="contained"
-          size="small"
-          style={{ borderRadius: "2px" }}
-        >
-          View all
-        </Button>
+        
       </TopBox>
       <SideBox style={{ width: toggleAd ? "16%" : "13%" }}>
         <Typography variant="h5">{title}</Typography>
-        <Button variant="contained" style={{ borderRadius: "2px" }}>
-          View all
-        </Button>
+        
       </SideBox>
       <Box style={{ width: toggleAd ? "74%" : "87%", margin: "auto" }}>
         <Carousel

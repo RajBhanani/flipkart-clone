@@ -22,10 +22,13 @@ const StyledHeader = styled(AppBar)`
   height: 55px;
 `;
 
-const StyledBox = styled(Box)`
-  margin-left: 12%;
-  line-height: 0;
-`;
+const StyledBox = styled(Box)(({theme}) => ({
+  marginLeft: "12%",
+  lineHeight: "0",
+  [theme.breakpoints.down("md")]: {
+    marginLeft: "10px"
+  }
+}));
 
 const SubHeading = styled(Typography)`
   font-size: 10px;
@@ -42,6 +45,7 @@ const CustomButtonWrapper = styled(Box)(({ theme }) => ({
 
 const MenuIconButton = styled(IconButton)(({ theme }) => ({
   display: "none",
+  marginLeft: "-10px",
   [theme.breakpoints.down("md")]: {
     display: "block",
   },
@@ -67,11 +71,10 @@ const Header = () => {
     return (
       <Box>
         <List>
-        <ListItem>
-          <CustomButtons/>
-        </ListItem>
-      </List>
-        {/* TEST */}
+          <ListItem>
+            <CustomButtons />
+          </ListItem>
+        </List>
       </Box>
     );
   };

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Box, styled } from "@mui/material";
-import { getProducts } from "../../redux/actions/product_actions";
+import { getProducts } from "../../redux/actions/productActions.js";
 import { useDispatch, useSelector } from "react-redux";
 
 import NavBar from "./NavBar";
