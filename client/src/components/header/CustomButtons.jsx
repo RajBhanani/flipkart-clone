@@ -18,7 +18,10 @@ const ButtonBox = styled(Box)(({ theme }) => ({
     textAlign: "center",
   },
   "& > div > a": {
-    color: "white"
+    color: "white",
+  },
+  [theme.breakpoints.down("lg")]: {
+    "& > button, & > p, & > div": {margin: "auto 15px"}
   },
   [theme.breakpoints.down("md")]: {
     padding: "20px",
@@ -28,7 +31,7 @@ const ButtonBox = styled(Box)(({ theme }) => ({
       width: "auto",
     },
     "& > div > a": {
-      color: "black"
+      color: "black",
     },
   },
 }));
@@ -73,14 +76,15 @@ const CustomButtons = () => {
             textDecoration: "none",
           }}
         >
-          <Badge badgeContent={cartItems?.length} color="error" >
-          </Badge>
-            <ShoppingCartIcon fontSize="small" />
-            <Typography style={{ fontSize: "15px", fontWeight: "600" }}>
-              Cart
-            </Typography>
+          <Badge badgeContent={cartItems?.length} color="error"></Badge>
+          <ShoppingCartIcon fontSize="small" />
+          <Typography style={{ fontSize: "15px", fontWeight: "600" }}>
+            Cart
+          </Typography>
         </Link>
       </Box>
+
+      <Typography style={{marginRight: "0", width: "110px"}}>Clone made by Raj Bhanani</Typography>
 
       <AuthDialog open={open} setOpen={setOpen} />
     </ButtonBox>

@@ -23,8 +23,11 @@ const StyledHeader = styled(AppBar)`
 `;
 
 const StyledBox = styled(Box)(({theme}) => ({
-  marginLeft: "12%",
+  marginLeft: "7%",
   lineHeight: "0",
+  [theme.breakpoints.down("lg")]: {
+    margin: "0"
+  },
   [theme.breakpoints.down("md")]: {
     marginLeft: "10px"
   }
@@ -38,6 +41,9 @@ const SubHeading = styled(Typography)`
 
 const CustomButtonWrapper = styled(Box)(({ theme }) => ({
   margin: "0 5% 0 auto",
+  [theme.breakpoints.down("lg")]: {
+    margin: "0"
+  },
   [theme.breakpoints.down("md")]: {
     display: "none",
   },
